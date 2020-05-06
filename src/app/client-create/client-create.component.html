@@ -1,0 +1,170 @@
+
+<div class="container">
+  <form class="create-client">
+  <div class="row">
+
+    <div class="col-6">
+
+        <div class="client">
+          <div class="form-group">
+            <label for="client">Клиент</label>
+            <select class="custom-select" name="client" id="client" formControlName="client">
+              <option value="1">1</option>
+            </select>
+            <button type="button" (click)="isClientCreated=!isClientCreated">+ Создать</button>
+          </div>
+          <div *ngIf="!isClientCreated">
+
+            <div class="form-group">
+              <label for="clientSurname">Фамилия</label>
+              <input class="form-control" type="text" id="clientSurname" formControlName="surname">
+            </div>
+
+            <div class="form-group">
+              <label for="clientName">Имя</label>
+              <input class="form-control" type="text" id="clientName" formControlName="name">
+            </div>
+
+            <div class="form-group">
+              <label for="clientPhone">Телефон</label>
+              <input  class="form-control" type="text" id="clientPhone" formControlName="phone">
+            </div>
+
+            <div class="form-group">
+              <label for="clientAddress">Адрес</label>
+              <input class="form-control" type="text" id="clientAddress" formControlName="address">
+            </div>
+          </div>
+        </div>
+      <hr>
+      <div class="form-group">
+        <label class="form-check-label" for="repeat">
+          <input class="form-check-input" type="checkbox" id ="repeat">
+          Повторный прием</label>
+      </div>
+      <div class="form-group">
+        <label for="symptoms">Симптомы</label>
+        <textarea class="form-control" id="symptoms" name="symptoms"  cols="20" rows="5"></textarea>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="pet">
+
+        <div class="form-group">
+          <label for="pet">Питомец</label>
+          <select class="custom-select" name="pet" id="pet">
+            <option value="1">1</option>
+          </select>
+          <button type="button" (click)="isPetCreated=!isPetCreated">+ Создать</button>
+        </div>
+        <div *ngIf="!isPetCreated">
+          <div class="form-group">
+
+            <div class="form-check-inline">
+              <label  class="form-check-label" for="cat">
+                <input class="form-check-input" type="radio" name="type" value="Кошка" id="cat">
+                Кошка
+              </label>
+            </div>
+
+            <div class="form-check-inline">
+              <label class="form-check-label" for="dog">
+                <input class="form-check-input" type="radio" name="type" value="Собака" id="dog">
+                Собака
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="bird">
+                <input class="form-check-input" type="radio" name="type" value="Птица" id="bird">
+                Птица
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="rodent">
+                <input class="form-check-input" type="radio" name="type" value="Грызун" id="rodent">
+                Грызун
+              </label>
+            </div>
+          </div>
+
+          <div class="form-check-inline">
+            <label class="form-check-label" for="male">
+              <input class="form-check-input" type="radio" name="gender" value="Мужской" id="male">Мужской
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label" for="female">
+              <input class="form-check-input" type="radio" name="gender" value="Женский" id="female">Женский
+            </label>
+          </div>
+
+
+          <div class="form-group">
+            <label for="petName">Имя</label>
+            <input class="form-control" type="text" id="petName">
+          </div>
+          <div class="form-group">
+            <label for="petAge">Возраст</label>
+            <input class="form-control" type="text" id="petAge">
+          </div>
+          <div class="form-group">
+            <label for="petWeight">Вес</label>
+            <input class="form-control" type="text" id="petWeight">
+          </div>
+
+
+
+        </div>
+      </div>
+      <hr>
+
+      <div class="form-group">
+
+        <select class="custom-select" name="diagnosis" id="diagnosis">
+          <option value="1">Диагнозы</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <button type="button">Добавить</button>
+      </div>
+
+      <div class="form-group">
+        <select class="custom-select" name="services" id="services">
+          <option value="1">Услуги</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <button type="button">Добавить</button>
+      </div>
+
+      <div class="form-group">
+        <select class="custom-select" name="services" id="materials">
+          <option value="1">Материалы</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <button type="button">Добавить</button>
+      </div>
+      <div class="form-group">
+        <label for="appointment">Назначения</label>
+        <textarea class="form-control" id="appointment" name="appointment"  cols="20" rows="5"></textarea>
+      </div>
+
+
+      <button type="submit" [disabled]="form.invalid">Создать</button>
+
+    </div>
+
+
+
+
+
+
+
+    </div>
+
+  </form>
+
+</div>
+

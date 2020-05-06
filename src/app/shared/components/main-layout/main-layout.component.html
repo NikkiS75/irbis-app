@@ -1,0 +1,27 @@
+<div class="main-panel container-fluid ">
+
+
+  <nav class="navbar navbar-expand-sm bg-light mynav">
+    <h1>Irbis+</h1>
+    <ul *ngIf="auth.isAuthenticated()" class="navbar-nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['','reception']" >Прием</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['','clients']" >Клиенты</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['','settings']">Настройки</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['','reports']">Отчеты</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="logout($event)" > Выйти</a>
+      </li>
+    </ul>
+
+  </nav>
+
+</div>
+<router-outlet></router-outlet>
