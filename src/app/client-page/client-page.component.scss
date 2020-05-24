@@ -1,0 +1,51 @@
+.container-fluid{
+  margin-bottom: 100px;
+}
+.card{
+  margin-top: 20px;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2), 0 6px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+h6{
+  font-size: 25px;
+}
+
+fa-icon{
+  margin: 0 20px;
+}
+.pets{
+  margin-top: 10px;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.card-pet{
+ margin: 10px 0;
+  width: 350px;
+}
+.card-body-pet{
+  padding-top: 0;
+}
+
+.displayNone{
+  display: none;
+}
+.displayBlock{
+  display: block;
+}
+
+.card-header{
+  display: flex;
+  justify-content: space-between;
+}
+.show-btn{
+  background: transparent;
+  border: none;
+  width:30px;
+  height: 30px;
+  text-align: center;
+}
+.alert{
+  margin-top: 20px;
+}
+

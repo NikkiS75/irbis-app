@@ -1,1 +1,29 @@
-<p>clients-page works!</p>
+
+<div class="container" *ngIf="clients.length; else loading">
+  <div class="row">
+    <div class="col-md-12">
+      <input class="form-control" type="text" placeholder="Найти..." [(ngModel)]="search">
+      <div class="cards">
+        <div class="card" *ngFor="let client of clients | searchClients: search">
+          <div class="card-header bg-primary">
+            <h6 class="card-title text-white">
+              {{client.surname}} {{client.name}}
+            </h6>
+          </div>
+          <div class="card-body text-right">
+            <button class="btn btn-primary" [routerLink]="['','client', client.id]" >
+              Открыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+    <div class="container">
+      <div class="alert alert-light text-center"> Загрузка...</div>
+    </div>
+</ng-template>
+

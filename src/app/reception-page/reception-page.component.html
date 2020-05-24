@@ -1,39 +1,79 @@
-
-<div class="container-fluid  text-center reception">
+<div class="container-fluid  text-center reception" >
   <div class="row">
-    <div class="col-md-10">
-      <table class="table table-responsive-md">
-        <thead>
-        <tr>
-          <th scope="col">№</th>
-          <th scope="col">Время</th>
-          <th scope="col">Клиент</th>
-          <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let country of countries; index as i">
-          <th scope="row">{{ i + 1 }}</th>
-          <td>
-            {{ country.name }}
-          </td>
-          <td>{{ country.area | number }}</td>
-          <td>{{ country.population | number }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-md-2">
+    <div class="col-md-10 content">
+
+      <input type="text" class="form-control" placeholder="Поиск..." [(ngModel)]="search">
+
+      <div class="cards">
+        <div class="card  mb-3" *ngFor="let reception of todayReceptions | search: search; index as i ">
+          <div class="card-header text-white bg-primary">
+            <div class="row">
+              <div class=" col-md-7 text-left">
+                {{reception.clientSurname}}
+              </div>
+              <div class=" col-md-5 text-right">
+                <small>{{reception.date | date : 'dd.MM HH:mm'}}</small>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">  <h6 class="card-subtitle text-left">{{reception.petName}}</h6></div>
+              <div class="col-md-6 text-right"> <button class="show-btn" [id]="reception.id" (click)="toggler($event)">	&#x25BC;</button></div>
+            </div>
+            <div class="toggle-content displayNone" [id]="reception.id+'_toggle'" >
+            <div class="card-text">
+              <hr>
+              <div class="row">
+                <div class="col-md-4 text-left">
+                  <h6>Симптомы:</h6>
+                  <div class="text-left symptoms">
+                  {{reception.symptoms}}
+                </div></div>
+                <div class="col-md-4 list">
+                  <div class="text-left diagnosis">
+                   <h6>Диагнозы:</h6>
+                  <ul class="list-group list-group-flush " *ngFor="let diagnosis of reception.diagnosis">
+                    <li class="list-group-item">
+                      <fa-icon [icon]="faCommentMedical"></fa-icon>
+                      {{diagnosis}}</li>
+                  </ul>
+                </div>
+                </div>
+                <div class="col-md-4 text-left">
+                  <ul class="list-group list-group-flush text-left" *ngFor="let service of reception.services">
+                  <li class="list-group-item">
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                    {{service}}</li>
+                </ul>
+                  <ul class="list-group list-group-flush text-left material-list" *ngFor="let material of reception.materials">
+                    <li class="list-group-item">
+                      <fa-icon [icon]="faSyringe"></fa-icon>
+                      {{material}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="card-footer">
+            <div class="text-left">
+              {{reception.appointment}}
+            </div>
+          </div>
+          </div>
+        </div>
 
 
-          <a class="btn btn-primary add-button " [routerLink]="['','client-create']">Добавить</a>
 
+        <div class="alert alert-primary" *ngIf="message">{{message}}</div>
+      </div>
+      <div class="col-md-2 control">
+        <a class="btn btn-primary add-button order-1" [routerLink]="['','client-create']">Добавить</a>
+        <ngb-datepicker class="order-0" (dateSelect)="onDateSelect($event)"></ngb-datepicker>
+      </div>
     </div>
   </div>
-</div>
 
 
-
-
-
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>

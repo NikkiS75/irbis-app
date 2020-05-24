@@ -1,48 +1,86 @@
-import { Component, OnInit } from '@angular/core';
-interface Country {
-  name: string;
-  flag: string;
-  area: number;
-  population: number;
-}
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ClientService} from '../shared/services/client.service';
+import {Client, Pet, Reception} from '../shared/interfaces';
+import {Subscription} from 'rxjs';
+import {PetService} from '../shared/services/pet.service';
+import {ReceptionService} from '../shared/services/reception.service';
+import {find} from 'rxjs/operators';
+import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
+import {all} from 'codelyzer/util/function';
+import {faCoffee} from '@fortawesome/free-solid-svg-icons/faCoffee';
+import {faCommentMedical} from '@fortawesome/free-solid-svg-icons/faCommentMedical';
+import {faSyringe} from '@fortawesome/free-solid-svg-icons/faSyringe';
+import {faPlus} from '@fortawesome/free-solid-svg-icons/faPlus';
 
-const COUNTRIES: Country[] = [
-  {
-    name: 'Russia',
-    flag: 'f/f3/Flag_of_Russia.svg',
-    area: 17075200,
-    population: 146989754
-  },
-  {
-    name: 'Canada',
-    flag: 'c/cf/Flag_of_Canada.svg',
-    area: 9976140,
-    population: 36624199
-  },
-  {
-    name: 'United States',
-    flag: 'a/a4/Flag_of_the_United_States.svg',
-    area: 9629091,
-    population: 324459463
-  },
-  {
-    name: 'China',
-    flag: 'f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
-    area: 9596960,
-    population: 1409517397
-  }
-];
+
 @Component({
   selector: 'app-reception-page',
   templateUrl: './reception-page.component.html',
   styleUrls: ['./reception-page.component.scss']
 })
-export class ReceptionPageComponent implements OnInit {
+export class ReceptionPageComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  clients: Client[];
+  pSub: Subscription;
+  allReceptions: Reception[];
+  todayReceptions: Reception[];
+  message = ''
+  faCommentMedical = faCommentMedical;
+  faSyringe=faSyringe;
+  faPlus = faPlus;
+  show = false
+  idx: string;
+  search = '';
 
-  ngOnInit(): void {
+
+  constructor(private petService: PetService, private receptionService: ReceptionService) {
   }
-  countries = COUNTRIES;
 
+  ngOnInit() {
+
+    this.receptionService.getAllReception().subscribe(receptions => {
+      this.allReceptions = receptions;
+      this.todayReceptions = this.allReceptions.filter(receptions => receptions.date.getDate() == new Date().getDate())
+      if (this.todayReceptions.length == 0){
+        this.message = 'Приемов нет'
+      }else{
+        this.message =''
+      }
+
+    });
+
+
+
+  }
+
+
+  ngOnDestroy(): void {
+    if (this.pSub) {
+      this.pSub.unsubscribe();
+    }
+  }
+
+  onDateSelect($event: NgbDate) {
+
+
+      this.todayReceptions = this.allReceptions.filter(receptions => receptions.date.getDate() == $event.day)
+    if (this.todayReceptions.length == 0){
+      this.message = 'Приемов нет'
+    }else{
+      this.message =''
+    }
+
+  }
+
+  toggler($event) {
+    this.show = !this.show;
+    this.idx = $event.target.id;
+    if (this.show == true&&this.idx) {
+
+      document.getElementById(this.idx + '_toggle').className = 'displayBlock';
+    } else {
+      document.getElementById(this.idx + '_toggle').className = 'displayNone';
+    }
+
+  }
 }

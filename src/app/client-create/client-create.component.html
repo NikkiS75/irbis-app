@@ -1,33 +1,44 @@
 
+
+
+
 <div class="container">
-  <form class="create-client">
-  <div class="row">
-
-    <div class="col-6">
-
-        <div class="client">
-          <div class="form-group">
-            <label for="client">Клиент</label>
-            <select class="custom-select" name="client" id="client" formControlName="client">
-              <option value="1">1</option>
+  <div class="alert alert-success" *ngIf="messageSuccess">{{messageSuccess}}</div>
+  <form>
+    <div class="row" >
+      <div class="col-md-6">
+        <div class="client" >
+          <div class="form-group" [formGroup]="formExistClient">
+            <label for="client" class="headers">Клиент</label>
+            <select class="custom-select" name="client" id="client" formControlName="client" (change)="showPet($event)" >
+              <option [value]="client.id" *ngFor="let client of clients">{{client.surname}} {{client.name}} {{client.phone}}</option>
             </select>
-            <button type="button" (click)="isClientCreated=!isClientCreated">+ Создать</button>
           </div>
-          <div *ngIf="!isClientCreated">
 
+          <div class="btn-group">
+            <button class="btn btn-primary" (click)="addNewClient();
+           addPet(); formExistClient.get('client').disable();
+            formExistClient.get('pet').disable();" [disabled]="isNewClient==true" >Добавить</button>
+            <button class="btn btn-primary" (click)="formExistClient.get('client').enable();
+            formExistClient.get('pet').enable();clientFormFalse()" [hidden]="isNewClient==false">Клиент существует</button>
+          </div>
+
+
+
+          <div class="newClient" [hidden]="isNewClient==false" [formGroup]="clientForm" *ngIf="clientForm">
             <div class="form-group">
               <label for="clientSurname">Фамилия</label>
-              <input class="form-control" type="text" id="clientSurname" formControlName="surname">
+              <input class="form-control" type="text" id="clientSurname" formControlName="clientSurname">
             </div>
 
             <div class="form-group">
               <label for="clientName">Имя</label>
-              <input class="form-control" type="text" id="clientName" formControlName="name">
+              <input class="form-control" type="text" id="clientName" formControlName="clientName">
             </div>
 
             <div class="form-group">
               <label for="clientPhone">Телефон</label>
-              <input  class="form-control" type="text" id="clientPhone" formControlName="phone">
+              <input class="form-control" type="text" id="clientPhone" prefix="+7" mask="(000)000-00-00" formControlName="phone">
             </div>
 
             <div class="form-group">
@@ -36,135 +47,188 @@
             </div>
           </div>
         </div>
-      <hr>
-      <div class="form-group">
-        <label class="form-check-label" for="repeat">
-          <input class="form-check-input" type="checkbox" id ="repeat">
-          Повторный прием</label>
       </div>
-      <div class="form-group">
-        <label for="symptoms">Симптомы</label>
-        <textarea class="form-control" id="symptoms" name="symptoms"  cols="20" rows="5"></textarea>
-      </div>
-    </div>
+      <div class="col-md-6">
+        <div class="pet" >
+          <div class="form-group" [formGroup]="formExistClient">
+            <label for="pet" class="headers" >Питомец</label>
+            <select  class="custom-select" name="pet" id="pet" formControlName="pet" (change)="selectedPet($event)">
+              <option [value]="pet.id" *ngFor="let pet of newPets">{{pet.name}}</option>
+            </select>
+          </div>
 
-    <div class="col-6">
-      <div class="pet">
+          <div class="btn-group">
+            <button class="btn btn-primary" [disabled]="isNewClient == true || isNewPet == true"
+                    (click)="addPet();formExistClient.get('pet').disable(); " >Добавить</button>
 
-        <div class="form-group">
-          <label for="pet">Питомец</label>
-          <select class="custom-select" name="pet" id="pet">
-            <option value="1">1</option>
-          </select>
-          <button type="button" (click)="isPetCreated=!isPetCreated">+ Создать</button>
+            <button class="btn btn-primary" (click)="formExistClient.get('pet').enable();petFormFalse()"
+                    [hidden]="isNewPet==false || isNewClient == true">Питомец существует</button>
+          </div>
+
+
+          <div class="newPet" [hidden]="isNewClient==false && isNewPet == false" [formGroup]="formPet" *ngIf="formPet">
+            <div class="form-group text-center">
+
+              <div class="btn-group btn-group-toggle " ngbRadioGroup name="radioPets">
+
+                  <label ngbButtonLabel class=" btn-primary" for="cat">
+                    <input ngbButton  type="radio" name="petType" value="Кошка" id="cat" formControlName="petType">
+                    <fa-icon [icon]="faCat"></fa-icon>
+                  </label>
+
+
+
+                  <label ngbButtonLabel class=" btn-primary" for="dog">
+                    <input ngbButton type="radio" name="petType" value="Собака" id="dog" formControlName="petType">
+                    <fa-icon [icon]="faDog"></fa-icon>
+                  </label>
+
+
+                  <label ngbButtonLabel class="form-check-label btn-primary" for="bird">
+                    <input ngbButton  type="radio" name="petType" value="Птица" id="bird" formControlName="petType">
+                    <fa-icon [icon]="faBird"></fa-icon>
+                  </label>
+
+
+                  <label ngbButtonLabel class="form-check-label btn-primary" for="rodent">
+                    <input ngbButton  type="radio" name="petType" value="Грызун" id="rodent" formControlName="petType">
+                    <fa-icon [icon]="faOtter"></fa-icon>
+                  </label>
+
+              </div>
+              </div>
+            <div class="form-group text-center">
+              <div class="btn-group btn-group-toggle" ngbRadioGroup>
+                <label ngbButtonLabel class="btn-primary" for="male">
+                  <input ngbButton type="radio" name="petGender" value="Мужской" id="male" formControlName="petGender">
+                  <fa-icon [icon] ="faMars" ></fa-icon>
+                </label>
+
+
+                <label ngbButtonLabel class="btn-primary" for="female">
+                  <input ngbButton  type="radio" name="petGender" value="Женский" id="female" formControlName="petGender">
+                  <fa-icon [icon] ="faVenus" ></fa-icon>
+                </label>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="form-group">
+              <label  class="petName"  for="petName">Имя</label>
+              <input class="form-control" type="text" id="petName" formControlName="petName">
+            </div>
+            <div class="form-group">
+              <label  for="petAge">Возраст</label>
+              <input class="form-control" type="text" id="petAge" formControlName="petAge">
+            </div>
+            <div class="form-group">
+              <label  for="petWeight">Вес</label>
+              <input class="form-control" type="text" id="petWeight" formControlName="petWeight">
+            </div>
+          </div>
         </div>
-        <div *ngIf="!isPetCreated">
-          <div class="form-group">
+      </div>
+    </div>
 
-            <div class="form-check-inline">
-              <label  class="form-check-label" for="cat">
-                <input class="form-check-input" type="radio" name="type" value="Кошка" id="cat">
-                Кошка
-              </label>
+        <div class="row reception">
+
+          <div class="col-md-12" [formGroup]="receptionForm">
+            <hr>
+            <label class="headers">Прием</label>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="symptoms">Симптомы</label>
+                  <textarea class="form-control" id="symptoms" name="symptoms" cols="20" rows="5"
+                            formControlName="symptoms"></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="appointment">Назначения</label>
+                  <textarea class="form-control" id="appointment" name="appointment" cols="20" rows="5"
+                            formControlName="appointment"></textarea>
+                </div>
+
+              </div>
             </div>
 
-            <div class="form-check-inline">
-              <label class="form-check-label" for="dog">
-                <input class="form-check-input" type="radio" name="type" value="Собака" id="dog">
-                Собака
-              </label>
+            <div class="row selects">
+              <div class="col-md-4 col-sm-12">
+                <div formArrayName="diagnosis">
+                  <div class="form-group " *ngFor="let control of receptionForm.get('diagnosis')['controls']; index as i">
+                    <label  for="diagnosis">Диагноз {{i + 1}}</label>
+                    <div class="form-inline">
+                      <select class="custom-select margin-select" name="diagnosis" id="diagnosis" [formControlName]="i">
+                        <option [value]="diagnosis.title" *ngFor="let diagnosis of allDiagnosis">{{diagnosis.title}}</option>
+                      </select>
+                      <button class="btn btn-danger" type="button"  (click)="removeDiagnosis(i)">
+                        <fa-icon [icon] ="faMinus"></fa-icon></button>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary" type="button" (click)="addDiagnosis()">Добавить диагноз</button>
+                </div>
+              </div>
+              <div class="col-md-4 ">
+                <div formArrayName="services">
+                  <div class="form-group " *ngFor="let control of receptionForm.get('services')['controls']; index as i">
+                    <label for="services" > Услуга {{i + 1}}</label>
+                    <div class="form-inline ">
+                      <select class="custom-select margin-select" name="services" id="services" [formControlName]="i">
+                        <option [value]="service.title" *ngFor="let service of allServices">{{service.title}}</option>
+                      </select>
+                      <button class="btn btn-danger" type="button"  (click)="removeService(i)">
+                        <fa-icon [icon] ="faMinus"></fa-icon></button>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary" type="button" (click)="addServices()">Добавить услугу</button>
+                </div>
+              </div>
+              <div class="col-md-4 ">
+                <div formArrayName="materials">
+                  <div class="form-group " *ngFor="let control of receptionForm.get('materials')['controls']; index as i">
+                    <label for="materials">Материал {{i + 1}}</label>
+                    <div class="form-inline ">
+                      <select class="custom-select margin-select-material" name="materials" id="materials" [formControlName]="i">
+                        <option [value]="material.title" *ngFor="let material of allMaterials">{{material.title}}</option>
+                      </select>
+                      <button class="btn btn-danger" type="button"  (click)="removeMaterial(i)">
+                        <fa-icon [icon] ="faMinus"></fa-icon></button>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary" type="button" (click)="addMaterials()">Добавить материал</button>
+                </div>
+              </div>
             </div>
-            <div class="form-check-inline">
-              <label class="form-check-label" for="bird">
-                <input class="form-check-input" type="radio" name="type" value="Птица" id="bird">
-                Птица
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label" for="rodent">
-                <input class="form-check-input" type="radio" name="type" value="Грызун" id="rodent">
-                Грызун
-              </label>
-            </div>
-          </div>
-
-          <div class="form-check-inline">
-            <label class="form-check-label" for="male">
-              <input class="form-check-input" type="radio" name="gender" value="Мужской" id="male">Мужской
-            </label>
-          </div>
-          <div class="form-check-inline">
-            <label class="form-check-label" for="female">
-              <input class="form-check-input" type="radio" name="gender" value="Женский" id="female">Женский
-            </label>
-          </div>
-
-
-          <div class="form-group">
-            <label for="petName">Имя</label>
-            <input class="form-control" type="text" id="petName">
-          </div>
-          <div class="form-group">
-            <label for="petAge">Возраст</label>
-            <input class="form-control" type="text" id="petAge">
-          </div>
-          <div class="form-group">
-            <label for="petWeight">Вес</label>
-            <input class="form-control" type="text" id="petWeight">
-          </div>
 
 
 
+
+
+
+
+
+
+
+            <div class="alert alert-danger" *ngIf="message">{{message}}</div>
+
+          </div>
         </div>
-      </div>
-      <hr>
-
-      <div class="form-group">
-
-        <select class="custom-select" name="diagnosis" id="diagnosis">
-          <option value="1">Диагнозы</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <button type="button">Добавить</button>
-      </div>
-
-      <div class="form-group">
-        <select class="custom-select" name="services" id="services">
-          <option value="1">Услуги</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <button type="button">Добавить</button>
-      </div>
-
-      <div class="form-group">
-        <select class="custom-select" name="services" id="materials">
-          <option value="1">Материалы</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <button type="button">Добавить</button>
-      </div>
-      <div class="form-group">
-        <label for="appointment">Назначения</label>
-        <textarea class="form-control" id="appointment" name="appointment"  cols="20" rows="5"></textarea>
-      </div>
+    <button class="btn btn-success submit" type="submit"
+            [disabled]="((clientForm)&&((clientForm.invalid)&&(isNewClient==true)))
+            ||((formPet)&&((formPet.invalid)&& isNewPet))
+            ||(formExistClient.invalid)||(receptionForm.invalid)"
+            (click)="submit()">Создать</button>
 
 
-      <button type="submit" [disabled]="form.invalid">Создать</button>
-
-    </div>
-
-
-
-
-
-
-
-    </div>
 
   </form>
 
+
 </div>
+<router-outlet></router-outlet>
 

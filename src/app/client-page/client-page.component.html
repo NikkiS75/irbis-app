@@ -1,1 +1,107 @@
-<p>client-page works!</p>
+
+
+<div class="container-fluid" id="content"  *ngIf="getclient; else loading" #content>
+  <div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header bg-light">
+          <h6 class="card-title text-dark">
+            {{getclient.surname}} {{getclient.name}}
+          </h6>
+          <button class="btn" [routerLink]="['', 'client', getclient.id, 'edit']" > <fa-icon [icon] = "faPen"></fa-icon></button>
+        </div>
+        <div class="card-body">
+          <div class="card-text">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Телефон <b> +7{{getclient.phone}}</b></li>
+              <li class="list-group-item">Адрес <b> {{getclient.address}}</b></li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 pets">
+      <div class="card card-pet" *ngFor="let pet of newPets">
+        <div class="card-header bg-light">
+          <h6 class="card-title text-dark">
+            {{pet.name}}
+          </h6>
+          <button  class="btn" [id]="pet.id" [routerLink]="['', 'client', pet.id, 'edit']"><fa-icon [icon]="faPen"></fa-icon></button>
+
+        </div>
+        <div class="card-body-pet">
+          <div class="card-text text-center">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <fa-icon class="fa-2x fa-rotate-270" [icon]="faCat" *ngIf="pet.type == 'Кошка'"></fa-icon>
+                <fa-icon class="fa-2x" [icon]="faDog" *ngIf="pet.type == 'Собака'"></fa-icon>
+                <fa-icon class="fa-2x" [icon]="faBird" *ngIf="pet.type == 'Птица'"></fa-icon>
+                <fa-icon class="fa-2x" [icon]="faOtter" *ngIf="pet.type == 'Грызун'"></fa-icon>
+                <fa-icon class="fa-2x" [icon]="faMars" *ngIf="pet.gender == 'Мужской'"></fa-icon>
+                <fa-icon class="fa-2x" [icon]="faVenus" *ngIf="pet.gender == 'Женский'"></fa-icon>
+              </li>
+              <li class="list-group-item"> Возраст <b>{{pet.age}}</b></li>
+              <li class="list-group-item"> Вес <b>{{pet.weight}}</b></li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-footer text-right" >
+          <button [id]="pet.name" (click)="selectPet($event)"  class="btn btn-primary"> Показать историю</button>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="col-md-6">
+      <div class="alert alert-primary" *ngIf="message">{{message}}</div>
+      <div class="card" *ngFor=" let reception of newReceptions; index as i">
+        <div class="card-header">
+          <h6 class="card-title"> <fa-icon [icon]="faClock"></fa-icon>{{reception.date| date: 'dd.MM.yyyy HH:mm'}}</h6>
+          <button class="show-btn" [id]="reception.id" (click)="toggler( $event)">	&#x25BC;</button>
+        </div>
+        <div class="toggle-content displayNone" [id]="reception.id+'_toggle'" >
+          <div class="card-body">
+            <div class="card-text">
+              <b>Симпотмы:</b>
+              {{reception.symptoms}}
+              <hr>
+              <b>Назначения:</b>
+              {{reception.appointment}}
+              <hr>
+                <ul class="list-group list-group-flush " *ngFor="let diagnosis of reception.diagnosis">
+                  <li class="list-group-item">
+                    <fa-icon [icon]="faCommentMedical"></fa-icon>
+                    {{diagnosis}}</li>
+                </ul>
+              <hr>
+              <ul class="list-group list-group-flush text-left" *ngFor="let service of reception.services">
+                <li class="list-group-item">
+                  <fa-icon [icon]="faPlus"></fa-icon>
+                  {{service}}</li>
+              </ul>
+              <ul class="list-group list-group-flush text-left material-list" *ngFor="let material of reception.materials">
+                <li class="list-group-item">
+                  <fa-icon [icon]="faSyringe"></fa-icon>
+                  {{material}}</li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="card-footer text-right">
+            <button class="btn btn-success" type="button" (click)="savePDF()">Сохранить в PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="container">
+    <div class="alert alert-light text-center"> Загрузка...</div>
+  </div>
+</ng-template>

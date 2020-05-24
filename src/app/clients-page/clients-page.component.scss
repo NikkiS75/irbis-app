@@ -1,0 +1,19 @@
+h6{
+  font-size: 25px;
+}
+input{
+  margin: 20px 0;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+}
+.cards{
+  display: flex;
+  flex-wrap: wrap;
+}
+.card{
+  width: 350px;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.alert{
+  margin-top: 200px;
+}

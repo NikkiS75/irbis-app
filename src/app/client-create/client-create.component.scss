@@ -1,2 +1,53 @@
-label{
+
+.container{
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  margin-bottom: 100px;
+}
+
+.container, .reception, .newClient, .newPet, .submit{
+ margin-top: 20px;
+}
+.submit{
+  margin-bottom: 20px;
+}
+.headers{
+  font-size: 27px;
+}
+
+hr{
+  height: 5px;
+}
+.btn-group, .btn{
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2), 0 6px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.petName{
+  margin-top: 10px;
+}
+
+input, select, textarea{
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.margin-select{
+  margin: 0px 5px;
+}
+.margin-select-material{
+  margin: 0px 2px;
+}
+.selects{
+  margin-top: 10px;
+}
+
+.btn-danger{
+  border-radius: 40px;
+}
+
+.form-service{
+  justify-content: center;
+}
+.form-material{
+  justify-content: flex-end;
 }

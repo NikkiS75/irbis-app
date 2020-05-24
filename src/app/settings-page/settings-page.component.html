@@ -1,1 +1,153 @@
-<p>settings-page works!</p>
+<div class="container">
+
+  <ul ngbNav  [(activeId)]="active" [destroyOnHide]="false" #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem ="1" [destroyOnHide]="false">
+      <a ngbNavLink>Диагнозы</a>
+      <ng-template ngbNavContent>
+        <div class="row">
+          <div class="col-6">
+            <table class="table table-responsive-md">
+              <thead>
+              <tr>
+                <th scope="col">№</th>
+                <th scope="col">Диагноз</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let diagnosis of allDiagnosis; index as i">
+                <td>{{i+1}}</td>
+                <td>{{diagnosis.title}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-6">
+            <form [formGroup]="diagnosisForm" (ngSubmit)="diagnosisSubmit()">
+              <div class="form-group">
+                <label for="diagnosisTitle">Название</label>
+                <input class="form-control" type="text" id="diagnosisTitle" formControlName="diagnosisTitle">
+              </div>
+              <button class="btn btn-primary" type="submit" [disabled]="diagnosisForm.invalid">Добавить</button>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem ="2" [destroyOnHide]="false">
+      <a ngbNavLink>Материалы</a>
+      <ng-template ngbNavContent>
+        <div class="row" >
+          <div class="col-6" >
+            <table class="table table-responsive-md">
+              <thead>
+              <tr>
+                <th scope="col">№</th>
+                <th scope="col">Материал</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let material of allMaterials; index as i">
+                <td>{{i+1}}</td>
+                <td>{{material.title}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-6">
+            <form [formGroup]="materialForm" (ngSubmit)="materialSubmit()">
+              <div class="form-group">
+                <label for="materialTitle">Название</label>
+                <input class="form-control" type="text" id="materialTitle" formControlName="materialTitle">
+              </div>
+              <button type="submit" class="btn btn-primary" [disabled]="materialForm.invalid">Добавить</button>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem ="3" [destroyOnHide]="false">
+      <a ngbNavLink>Услуги</a>
+      <ng-template ngbNavContent>
+
+        <div class="row">
+          <div class="col-6">
+            <table class="table table-responsive-md">
+              <thead>
+              <tr>
+                <th scope="col">№</th>
+                <th scope="col">Услуга</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let service of allServices; index as i">
+                <td>{{i + 1}}</td>
+                <td>{{service.title}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-6">
+            <form [formGroup]="serviceForm" (ngSubmit)="servicesSubmit()">
+              <div class="form-group">
+                <label for="serviceTitle">Название</label>
+                <input class="form-control" type="text" id="serviceTitle" formControlName="serviceTitle">
+              </div>
+              <button [disabled]="serviceForm.invalid" class="btn btn-primary" type="submit">Добавить</button>
+            </form>
+          </div>
+        </div>
+
+      </ng-template>
+    </li>
+
+
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

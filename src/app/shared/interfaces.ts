@@ -10,9 +10,9 @@ export interface FbAuthResponse {
   expiresIn: string
 }
 
-
 //Data
 export interface Client {
+  id?: string
   surname: string
   name: string
   phone: string
@@ -20,31 +20,41 @@ export interface Client {
 }
 
 export interface Pet {
+  id?: string
   type: string
   gender: string
   name: string
   age: string
   weight: string
+  idClient:string
 }
 
 export interface Reception {
+  id?: string
   date: Date
-  repeat: boolean
   clientSurname: string
+  petID: string
   petName: string
+  symptoms:string
   diagnosis: Diagnosis[]
   services: Services[]
-  Materials: Materials[]
+  materials: Materials[]
   appointment: string
 }
 
 export interface Diagnosis{
+  id?: string
   title: string
 }
 export interface Services {
+  id?: string
   title: string
 }
 export interface Materials{
+  id?: string
   title: string
 }
 
+export interface fbCreateResponse{
+  name: string
+}

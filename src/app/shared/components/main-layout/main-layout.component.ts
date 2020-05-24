@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {faToggleOn} from '@fortawesome/free-solid-svg-icons';
+import {faBars} from '@fortawesome/free-solid-svg-icons/faBars';
 
 @Component({
   selector: 'app-main-layout',
@@ -8,6 +10,7 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements OnInit {
+  faGamburger = faBars;
 
   constructor(
     private router: Router,

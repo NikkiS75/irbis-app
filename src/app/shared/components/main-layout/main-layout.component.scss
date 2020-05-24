@@ -1,12 +1,8 @@
 
-
-img{
-  height: 50px;
-}
-
 .main-panel{
   padding-right: 0px;
   padding-left: 0px;
+  box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.03), 0 4px 5px 0 rgba(0, 0, 0, 0.08);
 }
 .mynav{
 justify-content: space-between;
@@ -14,4 +10,16 @@ justify-content: space-between;
 .nav-item{
    padding: 0 10px;
    font-size: 17px;
+}
+
+
+
+@media (min-width: 576px) {.navbar-expand-sm .navbar-nav {
+ justify-content: space-between;
+}
+}
+@media (min-width: 576px) {
+  .navbar-expand-sm .navbar-collapse {
+    justify-content: flex-end;
+  }
 }

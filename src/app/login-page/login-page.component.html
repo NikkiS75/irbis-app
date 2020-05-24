@@ -10,6 +10,9 @@
       <div class="alert alert-danger" *ngIf="auth.error$ | async as error">
         {{error}}
       </div>
+      <div class="alert alert-danger" *ngIf="message">
+        {{message}}
+      </div>
       <form class="col-12" [formGroup]="form" (ngSubmit)="submit()">
         <div class="form-group" [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}">
           <input
