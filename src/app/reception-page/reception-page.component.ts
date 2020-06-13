@@ -40,7 +40,8 @@ export class ReceptionPageComponent implements OnInit, OnDestroy {
 
     this.receptionService.getAllReception().subscribe(receptions => {
       this.allReceptions = receptions;
-      this.todayReceptions = this.allReceptions.filter(receptions => receptions.date.getDate() == new Date().getDate())
+      this.todayReceptions = this.allReceptions.filter(receptions => ((receptions.date.getDate() == new Date().getDate())
+        && (receptions.date.getMonth() ==new Date().getMonth()) && (receptions.date.getFullYear() == new Date().getFullYear())))
       if (this.todayReceptions.length == 0){
         this.message = 'Приемов нет'
       }else{
@@ -63,7 +64,10 @@ export class ReceptionPageComponent implements OnInit, OnDestroy {
   onDateSelect($event: NgbDate) {
 
 
-      this.todayReceptions = this.allReceptions.filter(receptions => receptions.date.getDate() == $event.day)
+      this.todayReceptions = this.allReceptions.filter(receptions =>
+        ((receptions.date.getDate() == $event.day)&&
+          (receptions.date.getMonth()+1 == $event.month)&&
+          (receptions.date.getFullYear() == $event.year)))
     if (this.todayReceptions.length == 0){
       this.message = 'Приемов нет'
     }else{
@@ -82,5 +86,14 @@ export class ReceptionPageComponent implements OnInit, OnDestroy {
       document.getElementById(this.idx + '_toggle').className = 'displayNone';
     }
 
+  }
+
+  showAll() {
+    this.todayReceptions = this.allReceptions;
+    if (this.todayReceptions.length == 0){
+      this.message = 'Приемов нет'
+    }else{
+      this.message =''
+    }
   }
 }

@@ -1,11 +1,11 @@
 <div class="container-fluid  text-center reception" >
   <div class="row">
-    <div class="col-md-10 content">
+    <div class="col-md-10 content animate__animated animate__fadeInLeft">
 
       <input type="text" class="form-control" placeholder="Поиск..." [(ngModel)]="search">
 
       <div class="cards">
-        <div class="card  mb-3" *ngFor="let reception of todayReceptions | search: search; index as i ">
+        <div class="card animate__animated animate__fadeInDown mb-3" *ngFor="let reception of todayReceptions | search: search; index as i ">
           <div class="card-header text-white bg-primary">
             <div class="row">
               <div class=" col-md-7 text-left">
@@ -22,7 +22,7 @@
               <div class="col-md-6 text-right"> <button class="show-btn" [id]="reception.id" (click)="toggler($event)">	&#x25BC;</button></div>
             </div>
             <div class="toggle-content displayNone" [id]="reception.id+'_toggle'" >
-            <div class="card-text">
+            <div class="card-text  animate__animated animate__fadeInDown">
               <hr>
               <div class="row">
                 <div class="col-md-4 text-left">
@@ -66,11 +66,12 @@
 
 
 
-        <div class="alert alert-primary" *ngIf="message">{{message}}</div>
+        <div class="alert alert-primary  animate__animated animate__fadeInDown" *ngIf="message">{{message}}</div>
       </div>
-      <div class="col-md-2 control">
+      <div class="col-md-2 control animate__animated animate__fadeInRight" >
         <a class="btn btn-primary add-button order-1" [routerLink]="['','client-create']">Добавить</a>
         <ngb-datepicker class="order-0" (dateSelect)="onDateSelect($event)"></ngb-datepicker>
+        <button class="btn btn-primary show-all-btn" (click)="showAll()">Показать все приемы</button>
       </div>
     </div>
   </div>

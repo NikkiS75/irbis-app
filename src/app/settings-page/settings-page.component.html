@@ -17,6 +17,8 @@
               <tr *ngFor="let diagnosis of allDiagnosis; index as i">
                 <td>{{i+1}}</td>
                 <td>{{diagnosis.title}}</td>
+                <td><button (click)="removeDiagnosis(diagnosis.id)" type="button" class="btn btn-danger"><fa-icon [icon]="faMinus">
+                </fa-icon></button></td>
               </tr>
               </tbody>
             </table>
@@ -49,6 +51,8 @@
               <tr *ngFor="let material of allMaterials; index as i">
                 <td>{{i+1}}</td>
                 <td>{{material.title}}</td>
+                <td><button (click)="removeMaterial(material.id)" type="button" class="btn btn-danger"><fa-icon [icon]="faMinus">
+                </fa-icon></button></td>
               </tr>
               </tbody>
             </table>
@@ -82,6 +86,8 @@
               <tr *ngFor="let service of allServices; index as i">
                 <td>{{i + 1}}</td>
                 <td>{{service.title}}</td>
+                <td><button (click)="removeService(service.id)" type="button" class="btn btn-danger"><fa-icon [icon]="faMinus">
+                </fa-icon></button></td>
               </tr>
               </tbody>
             </table>
@@ -104,16 +110,6 @@
   </ul>
 
   <div [ngbNavOutlet]="nav" class="mt-2"></div>
-
-
-
-
-
-
-
-
-
-
 
 
 

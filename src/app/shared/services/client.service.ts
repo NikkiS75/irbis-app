@@ -41,8 +41,8 @@ export class ClientService {
         return{
           ...client, id
         }}))
-
   }
+
   update(client:Client):Observable<Client>{
       return this.http.patch<Client>(`${environment.fbDbUrl}/client/${client.id}.json`, client)
   }

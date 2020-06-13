@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Diagnosis, Materials, Services} from '../shared/interfaces';
 import {SettingsService} from '../shared/services/settings.service';
+import {faMinus} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-settings-page',
@@ -17,6 +18,7 @@ export class SettingsPageComponent implements OnInit {
   allDiagnosis: Diagnosis[]
   allMaterials: Materials[]
   allServices: Services[];
+  faMinus = faMinus;
 
 
   constructor( private settingsService: SettingsService) { }
@@ -88,4 +90,21 @@ export class SettingsPageComponent implements OnInit {
   }
 
 
+  removeDiagnosis(id:string) {
+this.settingsService.removeDiagnosis(id).subscribe(()=>{
+  this.allDiagnosis = this.allDiagnosis.filter(diagnosis => diagnosis.id !== id)
+})
+  }
+
+  removeMaterial(id:string) {
+    this.settingsService.removeMaterials(id).subscribe(()=>{
+      this.allMaterials = this.allMaterials.filter(material => material.id !== id)
+    })
+  }
+
+  removeService(id: string) {
+    this.settingsService.removeServices(id).subscribe(()=>{
+      this.allServices = this.allServices.filter(service => service.id !== id)
+    })
+  }
 }

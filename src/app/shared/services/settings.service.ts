@@ -84,4 +84,14 @@ export class SettingsService {
       }));
   }
 
+  removeDiagnosis(id:string):Observable<void>{
+    return this.http.delete<void>(`${environment.fbDbUrl}/diagnosis/${id}.json`)
+  }
+  removeMaterials(id:string):Observable<void>{
+    return this.http.delete<void>(`${environment.fbDbUrl}/materials/${id}.json`)
+  }
+  removeServices(id:string):Observable<void>{
+    return this.http.delete<void>(`${environment.fbDbUrl}/services/${id}.json`)
+  }
+
 }

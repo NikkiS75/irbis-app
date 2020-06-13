@@ -1,8 +1,8 @@
 <div class="main-panel container-fluid ">
 
   <nav class="navbar navbar-expand-sm bg-light mynav navbar-default" id="myNavbar">
-    <h1>Irbis+</h1>
-    <button class="navbar-toggler" type="button"
+    <h1 [routerLink]="['','reception']">Irbis+</h1>
+    <button  *ngIf="auth.isAuthenticated()" class="navbar-toggler" type="button"
             data-toggle="collapse"
             data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
@@ -11,8 +11,8 @@
       <fa-icon class="fa-1x" [icon]="faGamburger"></fa-icon>
     </button>
 
-    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-      <ul *ngIf="auth.isAuthenticated()" class="navbar-nav ">
+    <div  *ngIf="auth.isAuthenticated()" class="collapse navbar-collapse " id="navbarSupportedContent">
+      <ul class="navbar-nav ">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['','reception']" >Прием</a>
         </li>

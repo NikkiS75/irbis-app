@@ -29,7 +29,6 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['./client-page.component.scss']
 })
 export class ClientPageComponent implements OnInit {
-  @ViewChild('content', {static: false}) content: ElementRef;
   getclient: Client;
   pets: Pet[];
   newPets: Pet[];

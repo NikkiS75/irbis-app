@@ -1,29 +1,4 @@
-//.sidebar {
-//  text-align: center;
-//  height: 100vh;
-//  padding: 0;
-//  border-right: 2px solid #f7f8fa;
-//}
-//.content{
-//  padding: 0;
-//  height: 100vh;
-//  background-color: #f5f7fa;}
-//
-//img {
-//  margin-bottom: 20px;
-//}
-//
-//@media(max-width:991px){
-//
-//
-//  .sidebar{
-//    height:auto;
-//  }
-//  .content{
-//    text-align: center;
-//  }
-//
-//}
+
 body, html{
   padding: 0;
   margin:0;
@@ -32,3 +7,4 @@ body, html{
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+@import '~animate.css/animate.min';

@@ -2,7 +2,7 @@
 
 
 
-<div class="container">
+<div class="container animate__animated animate__fadeIn">
   <div class="alert alert-success" *ngIf="messageSuccess">{{messageSuccess}}</div>
   <form>
     <div class="row" >
@@ -25,7 +25,7 @@
 
 
 
-          <div class="newClient" [hidden]="isNewClient==false" [formGroup]="clientForm" *ngIf="clientForm">
+          <div class="newClient animate__animated animate__fadeInDown" [hidden]="isNewClient==false" [formGroup]="clientForm" *ngIf="clientForm">
             <div class="form-group">
               <label for="clientSurname">Фамилия</label>
               <input class="form-control" type="text" id="clientSurname" formControlName="clientSurname">
@@ -66,7 +66,7 @@
           </div>
 
 
-          <div class="newPet" [hidden]="isNewClient==false && isNewPet == false" [formGroup]="formPet" *ngIf="formPet">
+          <div class="newPet animate__animated animate__fadeInDown" [hidden]="isNewClient==false && isNewPet == false" [formGroup]="formPet" *ngIf="formPet">
             <div class="form-group text-center">
 
               <div class="btn-group btn-group-toggle " ngbRadioGroup name="radioPets">
@@ -159,11 +159,11 @@
 
             <div class="row selects">
               <div class="col-md-4 col-sm-12">
-                <div formArrayName="diagnosis">
-                  <div class="form-group " *ngFor="let control of receptionForm.get('diagnosis')['controls']; index as i">
+                <div formArrayName="diagnosis" >
+                  <div class="form-group animate__animated animate__fadeIn" *ngFor="let control of receptionForm.get('diagnosis')['controls']; index as i">
                     <label  for="diagnosis">Диагноз {{i + 1}}</label>
                     <div class="form-inline">
-                      <select class="custom-select margin-select" name="diagnosis" id="diagnosis" [formControlName]="i">
+                      <select class="custom-select margin-select " name="diagnosis" id="diagnosis" [formControlName]="i">
                         <option [value]="diagnosis.title" *ngFor="let diagnosis of allDiagnosis">{{diagnosis.title}}</option>
                       </select>
                       <button class="btn btn-danger" type="button"  (click)="removeDiagnosis(i)">
@@ -175,7 +175,7 @@
               </div>
               <div class="col-md-4 ">
                 <div formArrayName="services">
-                  <div class="form-group " *ngFor="let control of receptionForm.get('services')['controls']; index as i">
+                  <div class="form-group animate__animated animate__fadeIn" *ngFor="let control of receptionForm.get('services')['controls']; index as i">
                     <label for="services" > Услуга {{i + 1}}</label>
                     <div class="form-inline ">
                       <select class="custom-select margin-select" name="services" id="services" [formControlName]="i">
@@ -190,7 +190,7 @@
               </div>
               <div class="col-md-4 ">
                 <div formArrayName="materials">
-                  <div class="form-group " *ngFor="let control of receptionForm.get('materials')['controls']; index as i">
+                  <div class="form-group animate__animated animate__fadeIn " *ngFor="let control of receptionForm.get('materials')['controls']; index as i">
                     <label for="materials">Материал {{i + 1}}</label>
                     <div class="form-inline ">
                       <select class="custom-select margin-select-material" name="materials" id="materials" [formControlName]="i">

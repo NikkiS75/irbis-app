@@ -1,9 +1,9 @@
 
-<div class="container" *ngIf="clients.length; else loading">
+<div class="container " *ngIf="clients.length; else loading">
   <div class="row">
     <div class="col-md-12">
       <input class="form-control" type="text" placeholder="Найти..." [(ngModel)]="search">
-      <div class="cards">
+      <div class="cards animate__animated animate__fadeInDown">
         <div class="card" *ngFor="let client of clients | searchClients: search">
           <div class="card-header bg-primary">
             <h6 class="card-title text-white">
