@@ -28,7 +28,6 @@ export class SettingsPageComponent implements OnInit {
     this.settingsService.getAllDiagnosis().subscribe(diagnosis =>{
       this.allDiagnosis = diagnosis
     })
-
     this.settingsService.getAllMaterials().subscribe(materials =>{
       this.allMaterials = materials
     })
@@ -46,7 +45,6 @@ export class SettingsPageComponent implements OnInit {
     this.serviceForm = new FormGroup({
       serviceTitle: new FormControl('', Validators.required)
     })
-
   }
 
 
@@ -60,8 +58,6 @@ export class SettingsPageComponent implements OnInit {
         this.allDiagnosis = diagnosis
       })
     })
-
-
   }
 
   materialSubmit() {
@@ -86,14 +82,13 @@ export class SettingsPageComponent implements OnInit {
         this.allServices = services
       })
     })
-
   }
 
 
   removeDiagnosis(id:string) {
-this.settingsService.removeDiagnosis(id).subscribe(()=>{
-  this.allDiagnosis = this.allDiagnosis.filter(diagnosis => diagnosis.id !== id)
-})
+    this.settingsService.removeDiagnosis(id).subscribe(()=>{
+      this.allDiagnosis = this.allDiagnosis.filter(diagnosis => diagnosis.id !== id)
+    })
   }
 
   removeMaterial(id:string) {

@@ -1,13 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ClientService} from '../shared/services/client.service';
-import {Client, Pet, Reception} from '../shared/interfaces';
+import {Client, Reception} from '../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {PetService} from '../shared/services/pet.service';
 import {ReceptionService} from '../shared/services/reception.service';
-import {find} from 'rxjs/operators';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
-import {all} from 'codelyzer/util/function';
-import {faCoffee} from '@fortawesome/free-solid-svg-icons/faCoffee';
 import {faCommentMedical} from '@fortawesome/free-solid-svg-icons/faCommentMedical';
 import {faSyringe} from '@fortawesome/free-solid-svg-icons/faSyringe';
 import {faPlus} from '@fortawesome/free-solid-svg-icons/faPlus';
@@ -37,23 +33,18 @@ export class ReceptionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.receptionService.getAllReception().subscribe(receptions => {
       this.allReceptions = receptions;
       this.todayReceptions = this.allReceptions.filter(receptions => ((receptions.date.getDate() == new Date().getDate())
         && (receptions.date.getMonth() ==new Date().getMonth()) && (receptions.date.getFullYear() == new Date().getFullYear())))
       if (this.todayReceptions.length == 0){
         this.message = 'Приемов нет'
-      }else{
+      }else
+        {
         this.message =''
-      }
-
+        }
     });
-
-
-
   }
-
 
   ngOnDestroy(): void {
     if (this.pSub) {
@@ -62,30 +53,26 @@ export class ReceptionPageComponent implements OnInit, OnDestroy {
   }
 
   onDateSelect($event: NgbDate) {
-
-
       this.todayReceptions = this.allReceptions.filter(receptions =>
         ((receptions.date.getDate() == $event.day)&&
           (receptions.date.getMonth()+1 == $event.month)&&
           (receptions.date.getFullYear() == $event.year)))
     if (this.todayReceptions.length == 0){
       this.message = 'Приемов нет'
-    }else{
+    }else
+      {
       this.message =''
     }
-
   }
 
   toggler($event) {
     this.show = !this.show;
     this.idx = $event.target.id;
     if (this.show == true&&this.idx) {
-
       document.getElementById(this.idx + '_toggle').className = 'displayBlock';
     } else {
       document.getElementById(this.idx + '_toggle').className = 'displayNone';
     }
-
   }
 
   showAll() {

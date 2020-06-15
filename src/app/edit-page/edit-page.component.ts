@@ -55,15 +55,11 @@ export class EditPageComponent implements OnInit {
             petWeight: new FormControl(pet.weight, Validators.required),
           });
         })
-
       }
-
     });
-
   }
 
   submit() {
-
     if (this.formClient){
       this.clientService.update({
         id:this.client.id,
@@ -74,7 +70,8 @@ export class EditPageComponent implements OnInit {
       }).subscribe(()=> {
         this.message = 'Данные клиента успешно изменены'
       })
-  }else{
+  }else
+    {
     this.petService.update({
     id: this.pet.id,
     name: this.formPet.value.petName,
@@ -86,7 +83,5 @@ export class EditPageComponent implements OnInit {
     ).subscribe(()=>{
       this.message = 'Данные питомца успешно изменены'
     })
-
     }}
-
 }

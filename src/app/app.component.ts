@@ -1,10 +1,4 @@
-import {Component, ContentChild, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {MenuComponent} from './menu/menu.component';
-import {NgbNav} from '@ng-bootstrap/ng-bootstrap';
-
-
-
-
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +6,6 @@ import {NgbNav} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  active = 'reception';
-
-
-
 
 
 }

@@ -1,7 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ClientService} from '../shared/services/client.service';
-import {filter, switchMap} from 'rxjs/operators';
+import {switchMap} from 'rxjs/operators';
 import {Client, Pet, Reception} from '../shared/interfaces';
 import {PetService} from '../shared/services/pet.service';
 import {ReceptionService} from '../shared/services/reception.service';
@@ -20,7 +20,6 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import {formatDate} from '@angular/common';
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 @Component({
@@ -29,7 +28,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['./client-page.component.scss']
 })
 export class ClientPageComponent implements OnInit {
-  getclient: Client;
+  gotClient: Client;
   pets: Pet[];
   newPets: Pet[];
   receptions: Reception[];
@@ -61,49 +60,41 @@ export class ClientPageComponent implements OnInit {
     (switchMap((params: Params) => {
       return this.clientService.getById(params['id']);
     })).subscribe((client: Client) => {
-      this.getclient = client;
+      this.gotClient = client;
       this.petService.getAll().subscribe(pets => {
         this.pets = pets;
-        this.newPets = this.pets.filter(pets => pets.idClient === this.getclient.id);
-
+        this.newPets = this.pets.filter(pets => pets.idClient === this.gotClient.id);
       });
     });
-
-
   }
-
   selectPet($event) {
     this.selectedPet = $event.target.id;
     this.foundPet = this.newPets.find(pet => pet.name == this.selectedPet.trim());
     this.receptionService.getAllReception().subscribe(receptions => {
       this.receptions = receptions;
       this.newReceptions = this.receptions.filter(receptions => receptions.petID == this.foundPet.id);
-
       if (this.newReceptions.length == undefined || this.newReceptions.length ==0){
         this.message='Приемов не найдено'
-      }else{
+      }else
+        {
         this.message =''
       }
     });
-
   }
 
   toggler($event) {
-
     this.show = !this.show;
     this.idx = $event.target.id;
     if (this.show == true&&this.idx) {
-
       document.getElementById(this.idx + '_toggle').className = 'displayBlock';
     } else {
       document.getElementById(this.idx + '_toggle').className = 'displayNone';
     }
     this.selectedReception = this.newReceptions.find(reception => reception.id == $event.target.id.trim());
-
-
   }
 
   savePDF() {
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
     const documentDefinition = {
       content: [{
         text: 'Прием ' + formatDate(this.selectedReception.date, 'dd.MM.yyyy HH:mm', 'ru'),
@@ -119,9 +110,9 @@ export class ClientPageComponent implements OnInit {
         },
         {
           columns: [[{
-            text: 'Ф.И.: '+this.getclient.surname + ' ' + this.getclient.name},
-            {text: 'Телефон: +7' + this.getclient.phone},
-            {text: 'Адрес: ' + this.getclient.address}]
+            text: 'Ф.И.: '+this.gotClient.surname + ' ' + this.gotClient.name},
+            {text: 'Телефон: +7' + this.gotClient.phone},
+            {text: 'Адрес: ' + this.gotClient.address}]
           ]
         }, {
           text: 'Питомец',
@@ -167,17 +158,13 @@ export class ClientPageComponent implements OnInit {
           margin: [0, 10, 0, 0]
         },
         {text: 'Подпись врача ________________',
-          margin: [0,180, 0, 0]
+          margin: [0,150, 0, 0]
         }
-
       ]
-
-
-
     };
 
-    pdfMake.createPdf(documentDefinition).download(this.getclient.surname + ' '
-      +this.getclient.name+' '
+    pdfMake.createPdf(documentDefinition).download(this.gotClient.surname + ' '
+      +this.gotClient.name+' '
       + formatDate(this.selectedReception.date, 'dd.MM.yyyy HH.mm', 'ru')
       +".pdf");
   }

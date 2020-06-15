@@ -18,14 +18,14 @@
           <div class="btn-group">
             <button class="btn btn-primary" (click)="addNewClient();
            addPet(); formExistClient.get('client').disable();
-            formExistClient.get('pet').disable();" [disabled]="isNewClient==true" >Добавить</button>
+            formExistClient.get('pet').disable();" [disabled]="isNewClient" >Добавить</button>
             <button class="btn btn-primary" (click)="formExistClient.get('client').enable();
-            formExistClient.get('pet').enable();clientFormFalse()" [hidden]="isNewClient==false">Клиент существует</button>
+            formExistClient.get('pet').enable();clientFormFalse()" [hidden]="!isNewClient">Клиент существует</button>
           </div>
 
 
 
-          <div class="newClient animate__animated animate__fadeInDown" [hidden]="isNewClient==false" [formGroup]="clientForm" *ngIf="clientForm">
+          <div class="newClient animate__animated animate__fadeInDown" [hidden]="!isNewClient" [formGroup]="clientForm" *ngIf="clientForm">
             <div class="form-group">
               <label for="clientSurname">Фамилия</label>
               <input class="form-control" type="text" id="clientSurname" formControlName="clientSurname">
@@ -58,15 +58,15 @@
           </div>
 
           <div class="btn-group">
-            <button class="btn btn-primary" [disabled]="isNewClient == true || isNewPet == true"
+            <button class="btn btn-primary" [disabled]="isNewClient || isNewPet "
                     (click)="addPet();formExistClient.get('pet').disable(); " >Добавить</button>
 
             <button class="btn btn-primary" (click)="formExistClient.get('pet').enable();petFormFalse()"
-                    [hidden]="isNewPet==false || isNewClient == true">Питомец существует</button>
+                    [hidden]="!isNewPet || isNewClient">Питомец существует</button>
           </div>
 
 
-          <div class="newPet animate__animated animate__fadeInDown" [hidden]="isNewClient==false && isNewPet == false" [formGroup]="formPet" *ngIf="formPet">
+          <div class="newPet animate__animated animate__fadeInDown" [hidden]="!isNewClient && !isNewPet" [formGroup]="formPet" *ngIf="formPet">
             <div class="form-group text-center">
 
               <div class="btn-group btn-group-toggle " ngbRadioGroup name="radioPets">
@@ -219,7 +219,7 @@
           </div>
         </div>
     <button class="btn btn-success submit" type="submit"
-            [disabled]="((clientForm)&&((clientForm.invalid)&&(isNewClient==true)))
+            [disabled]="((clientForm)&&((clientForm.invalid)&&isNewClient))
             ||((formPet)&&((formPet.invalid)&& isNewPet))
             ||(formExistClient.invalid)||(receptionForm.invalid)"
             (click)="submit()">Создать</button>

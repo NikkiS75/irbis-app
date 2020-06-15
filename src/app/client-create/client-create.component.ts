@@ -1,17 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Client, Diagnosis, Materials, Pet, Reception, Services} from '../shared/interfaces';
 import {ClientService} from '../shared/services/client.service';
 import {PetService} from '../shared/services/pet.service';
 import {SettingsService} from '../shared/services/settings.service';
 import {ReceptionService} from '../shared/services/reception.service';
-import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
-import {merge, Observable, Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {faCat, faMars, faMinus, faVenus} from '@fortawesome/free-solid-svg-icons';
 import {faDog} from '@fortawesome/free-solid-svg-icons/faDog';
 import {faDove} from '@fortawesome/free-solid-svg-icons/faDove';
-import {faHorse} from '@fortawesome/free-solid-svg-icons/faHorse';
 import {faOtter} from '@fortawesome/free-solid-svg-icons/faOtter';
 
 @Component({
@@ -36,7 +32,7 @@ export class ClientCreateComponent implements OnInit {
   allServices: Services[];
   allMaterials: Materials[];
   message = '';
-  messageSuccess ='';
+  messageSuccess = '';
   public selectedClientSurname: string;
   public selectedPetName: string;
   faCat = faCat;
@@ -46,7 +42,6 @@ export class ClientCreateComponent implements OnInit {
   faMars = faMars;
   faVenus = faVenus;
   faMinus = faMinus;
-
 
 
   constructor(private clientService: ClientService,
@@ -87,14 +82,12 @@ export class ClientCreateComponent implements OnInit {
       materials: new FormArray([], Validators.required),
       appointment: new FormControl('', Validators.required)
     });
-
-
   }
 
   showPet($event) {
     this.selectedClientSurname = $event.target.options[$event.target.options.selectedIndex].text;
     this.selectedClientSurname = this.selectedClientSurname.replace(/[0-9]/g, '');
-    console.log(this.selectedClientSurname)
+    console.log(this.selectedClientSurname);
     this.petService.getAll().subscribe(pets => {
       this.pets = pets;
       this.newPets = this.pets.filter(pets => pets.idClient === this.formExistClient.value.client);
@@ -123,14 +116,10 @@ export class ClientCreateComponent implements OnInit {
       phone: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required)
     });
-
   }
 
   submit() {
-
-
     if (this.isNewClient == true) {
-      console.log('1 ветка');
       if (this.clientForm.invalid) {
         return;
       }
@@ -141,11 +130,9 @@ export class ClientCreateComponent implements OnInit {
         address: this.clientForm.value.address
       };
       this.clientService.getAll().subscribe(clients => {
-
         this.clientsForCheck = clients;
         if (this.clientsForCheck.length != 0) {
           this.clientService.create(client).subscribe((response) => {
-
             const pet: Pet = {
               age: this.formPet.value.petAge,
               gender: this.formPet.value.petGender,
@@ -166,27 +153,22 @@ export class ClientCreateComponent implements OnInit {
                 services: this.receptionForm.value.services,
                 appointment: this.receptionForm.value.appointment
               };
-
-
               this.receptionService.createReception(reception).subscribe(() => {
-
                 this.receptionForm.reset(), this.formPet.reset();
                 this.clientForm.reset();
               });
             });
           });
-
-        } else {
+        }
+        else {
           this.newClientsForCheck = this.clientsForCheck.find(clientsForCheck =>
             clientsForCheck.surname == client.surname &&
             clientsForCheck.name == client.name &&
             clientsForCheck.phone == client.phone &&
             clientsForCheck.address === client.address
           );
-
           if (this.newClientsForCheck === undefined) {
             this.clientService.create(client).subscribe((response) => {
-
               const pet: Pet = {
                 age: this.formPet.value.petAge,
                 gender: this.formPet.value.petGender,
@@ -207,27 +189,21 @@ export class ClientCreateComponent implements OnInit {
                   services: this.receptionForm.value.services,
                   appointment: this.receptionForm.value.appointment
                 };
-
-
                 this.receptionService.createReception(reception).subscribe(() => {
-
                   this.receptionForm.reset(), this.formPet.reset();
                   this.clientForm.reset();
-                  this.messageSuccess = "Клиент успешно добавлен"
-                  this.isNewClient = false
+                  this.messageSuccess = 'Клиент успешно добавлен';
+                  this.isNewClient = false;
                 });
               });
             });
-
-          } else {
+          }
+          else {
             return this.message = 'Клиент уже существует';
           }
-
         }
-
       });
     } else if (this.isNewPet == true) {
-      console.log('2 ветка');
       const pet: Pet = {
         age: this.formPet.value.petAge,
         gender: this.formPet.value.petGender,
@@ -253,15 +229,13 @@ export class ClientCreateComponent implements OnInit {
 
 
         this.receptionService.createReception(reception2).subscribe(() => {
-
           this.receptionForm.reset(), this.formPet.reset();
           this.formExistClient.reset();
-          this.messageSuccess = 'Питомец успешно создан'
+          this.messageSuccess = 'Питомец успешно создан';
         });
       });
 
     } else {
-      console.log('3 ветка');
       const reception3: Reception = {
         date: new Date(),
         clientSurname: this.selectedClientSurname,
@@ -273,13 +247,10 @@ export class ClientCreateComponent implements OnInit {
         services: this.receptionForm.value.services,
         appointment: this.receptionForm.value.appointment
       };
-
-
       this.receptionService.createReception(reception3).subscribe(() => {
-
-        this.receptionForm.reset(),
-          this.formExistClient.reset();
-        this.messageSuccess = "Запись приема успшено создана"
+        this.receptionForm.reset();
+        this.formExistClient.reset();
+        this.messageSuccess = 'Запись приема успешно создана';
         this.isNewPet = false;
       });
 
@@ -321,9 +292,7 @@ export class ClientCreateComponent implements OnInit {
   }
 
   selectedPet($event) {
-    this.selectedPetName = $event.target.options[$event.target.options.selectedIndex].text
-
-
+    this.selectedPetName = $event.target.options[$event.target.options.selectedIndex].text;
   }
 
   removeDiagnosis(i) {

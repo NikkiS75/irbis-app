@@ -1,21 +1,21 @@
-<div class="container-fluid" id="content" *ngIf="getclient; else loading" #content>
+<div class="container-fluid" id="content" *ngIf="gotClient; else loading" #content>
   <div>
     <div class="row">
       <div class="col-md-3 animate__animated animate__fadeInLeft">
         <div class="card ">
           <div class="card-header bg-light">
             <h6 class="card-title text-dark">
-              {{getclient.surname}} {{getclient.name}}
+              {{gotClient.surname}} {{gotClient.name}}
             </h6>
-            <button class="btn" [routerLink]="['', 'client', getclient.id, 'edit']">
+            <button class="btn" [routerLink]="['', 'client', gotClient.id, 'edit']">
               <fa-icon [icon]="faPen"></fa-icon>
             </button>
           </div>
           <div class="card-body">
             <div class="card-text">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">Телефон <b> +7{{getclient.phone}}</b></li>
-                <li class="list-group-item">Адрес <b> {{getclient.address}}</b></li>
+                <li class="list-group-item">Телефон <b> +7{{gotClient.phone}}</b></li>
+                <li class="list-group-item">Адрес <b> {{gotClient.address}}</b></li>
               </ul>
             </div>
           </div>

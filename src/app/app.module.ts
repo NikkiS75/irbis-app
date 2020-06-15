@@ -3,7 +3,6 @@ import {NgModule, Provider} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './menu/menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
@@ -42,7 +41,6 @@ const maskConfig: Partial<IConfig> = {
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
     MainLayoutComponent,
     LoginPageComponent,
     ReceptionPageComponent,
